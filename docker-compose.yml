@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: postgres:13
+    container_name: db
+    environment:
+      POSTGRES_USER: ckaew
+      POSTGRES_PASSWORD: senha123
+      POSTGRES_DB: backend_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: postgres://ckaew:senha123@db/backend_db
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+
+  ml_api:
+    build: ./ml_api
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+volumes:
+  pgdata:

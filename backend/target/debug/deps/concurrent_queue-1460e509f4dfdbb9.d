@@ -1,0 +1,11 @@
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/libconcurrent_queue-1460e509f4dfdbb9.rmeta: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/bounded.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/single.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/unbounded.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/sync.rs
+
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/libconcurrent_queue-1460e509f4dfdbb9.rlib: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/bounded.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/single.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/unbounded.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/sync.rs
+
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/concurrent_queue-1460e509f4dfdbb9.d: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/bounded.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/single.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/unbounded.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/sync.rs
+
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/lib.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/bounded.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/single.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/unbounded.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/concurrent-queue-2.5.0/src/sync.rs:

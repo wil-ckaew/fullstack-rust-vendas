@@ -1,0 +1,12 @@
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/libasync_io-f19b5bcc445b881d.rmeta: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/driver.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os/unix.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor/unix.rs
+
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/libasync_io-f19b5bcc445b881d.rlib: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/driver.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os/unix.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor/unix.rs
+
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/async_io-f19b5bcc445b881d.d: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/driver.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os/unix.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor/unix.rs
+
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/lib.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/driver.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/os/unix.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-io-2.3.4/src/reactor/unix.rs:

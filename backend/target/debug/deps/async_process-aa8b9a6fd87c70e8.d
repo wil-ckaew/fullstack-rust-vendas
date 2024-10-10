@@ -1,0 +1,11 @@
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/libasync_process-aa8b9a6fd87c70e8.rmeta: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/unix.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/mod.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/wait.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/signal.rs
+
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/libasync_process-aa8b9a6fd87c70e8.rlib: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/unix.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/mod.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/wait.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/signal.rs
+
+/home/kimel/rust/fullstack-rust-vendas/backend/target/debug/deps/async_process-aa8b9a6fd87c70e8.d: /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/lib.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/unix.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/mod.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/wait.rs /home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/signal.rs
+
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/lib.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/unix.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/mod.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/wait.rs:
+/home/kimel/.cargo/registry/src/index.crates.io-6f17d22bba15001f/async-process-2.3.0/src/reaper/signal.rs:
