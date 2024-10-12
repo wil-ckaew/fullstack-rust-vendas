@@ -1,6 +1,8 @@
 //models/schema.rs
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+use sqlx::FromRow; // Make sure to import FromRow
+
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct ClientModel {

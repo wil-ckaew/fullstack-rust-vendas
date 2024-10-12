@@ -41,9 +41,6 @@ async fn main() -> std::io::Result<()> {
                     .allow_any_method() // Permite qualquer método HTTP
                     .allow_any_header() // Permite quaisquer cabeçalhos
             )
-            // Servir arquivos estáticos, se necessário
-            .service(actix_files::Files::new("/uploads", "./uploads").show_files_listing()) // Servir diretório de uploads
-            .service(actix_files::Files::new("/static", "./static").show_files_listing()) // Servir diretório de arquivos estáticos
     })
     .bind("127.0.0.1:8080")? // Bind do servidor na porta 8080
     .run()
