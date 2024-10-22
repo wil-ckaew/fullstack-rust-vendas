@@ -5,16 +5,18 @@ use actix_web::{
 };
 use serde_json::json;
 use crate::{
-    models::client::{CreateClientSchema, UpdateClientSchema, ClientModel, FilterOptions}, 
+    models::client::ClientModel,
+    models::schema::{CreateClientSchema, UpdateClientSchema, FilterOptions},
     AppState
 };
 use uuid::Uuid;
 use sqlx::PgPool; // Supondo que isso seja necessário
 
-#[post("/clientes")]
+#[post("/clients")]
 async fn create_client(
     body: Json<CreateClientSchema>,
-    db_pool: Data<PgPool>,
+    //db_pool: Data<PgPool>,
+    data: Data<AppState>
 ) -> impl Responder {
     let query = r#"
         INSERT INTO clients (name, email, phone)
@@ -26,21 +28,34 @@ async fn create_client(
         .bind(&body.name)
         .bind(&body.email)
         .bind(&body.phone)
-        .fetch_one(&**db_pool)
+        //.fetch_one(&**db_pool)
+        .fetch_one(&data.db)
         .await
     {
-        Ok(cliente) => HttpResponse::Ok().json(json!({
-            "status": "sucesso",
-            "cliente": cliente
-        })),
-        Err(_) => HttpResponse::InternalServerError().json(json!({
-            "status": "erro",
-            "mensagem": "Falha ao criar cliente"
-        })),
+        Ok(client) => {
+            let response = json!({
+                "status": "success",
+                "client": {
+                    "id": client.id,
+                    "name": client.name,
+                    "email": client.email,
+                    "phone": client.phone
+                    //"created_at": client.created_at
+                }
+            });
+            HttpResponse::Ok().json(response)
+        }
+        Err(error) => {
+            let response = json!({
+                "status": "error",
+                "message": format!("Failed to create parent: {:?}", error)
+            });
+            HttpResponse::InternalServerError().json(response)
+        }
     }
 }
 
-#[get("/clientes")]
+#[get("/clients")]
 pub async fn get_all_clients(
     opts: Query<FilterOptions>, 
     data: Data<AppState>
@@ -90,7 +105,7 @@ async fn get_all_clients(db_pool: Data<PgPool>) -> impl Responder {
     }
 }
 */
-#[get("/clientes/{id}")]
+#[get("/clients/{id}")]
 async fn get_client_by_id(
     path: Path<Uuid>, 
     db_pool: Data<PgPool>
@@ -99,9 +114,9 @@ async fn get_client_by_id(
     let query = "SELECT * FROM clients WHERE id = $1";
     
     match sqlx::query_as::<_, ClientModel>(query).bind(client_id).fetch_one(&**db_pool).await {
-        Ok(cliente) => HttpResponse::Ok().json(json!({
+        Ok(clients) => HttpResponse::Ok().json(json!({
             "status": "sucesso",
-            "cliente": cliente
+            "clients": clients
         })),
         Err(_) => HttpResponse::InternalServerError().json(json!({
             "status": "erro",
@@ -138,7 +153,7 @@ async fn update_client_by_id(
                 Ok(updated_client) => {
                     let response = json!({
                         "status": "success",
-                        "parent": updated_client
+                        "updated_client": updated_client
                     });
                     HttpResponse::Ok().json(response)
                 }
@@ -196,7 +211,7 @@ async fn update_client_by_id(
     }
 }
 */
-#[delete("/clientes/{id}")]
+#[delete("/clients/{id}")]
 async fn delete_client_by_id(path: Path<Uuid>, db_pool: Data<PgPool>) -> impl Responder {
     let client_id = path.into_inner();
     let query = "DELETE FROM clients WHERE id = $1";
@@ -213,8 +228,8 @@ async fn delete_client_by_id(path: Path<Uuid>, db_pool: Data<PgPool>) -> impl Re
     }
 }
 
-pub fn config_clients(cfg: &mut ServiceConfig) {
-    cfg.service(create_client)
+pub fn config_clients(conf: &mut ServiceConfig) {
+    conf.service(create_client)
         .service(get_all_clients)
         .service(get_client_by_id)
         .service(update_client_by_id)

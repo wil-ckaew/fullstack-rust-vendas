@@ -5,7 +5,7 @@ use sqlx::{PgPool, postgres::PgPoolOptions};
 use dotenv::dotenv;
 use std::env;
 
-mod handlers;
+mod services;
 mod models;
 mod ai_service;
 
@@ -33,7 +33,7 @@ async fn main() -> std::io::Result<()> {
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(AppState { db: db_pool.clone() })) // Compartilha o pool de banco de dados
-            .configure(handlers::config) // Registra rotas e serviços
+            .configure(services::config) // Registra rotas e serviços
             .wrap(Logger::default()) // Habilita log de requisições
             .wrap(
                 Cors::default()

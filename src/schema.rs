@@ -1,29 +1,33 @@
-pub const CREATE_CLIENTS_TABLE: &str = r#"
-CREATE TABLE IF NOT EXISTS clients (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR NOT NULL,
-    email VARCHAR UNIQUE NOT NULL,
-    phone VARCHAR NOT NULL
-);
-"#;
+//models/schema.rs
+use serde::{Deserialize, Serialize};
+use uuid::Uuid;
+use sqlx::FromRow; // Make sure to import FromRow
 
-pub const CREATE_PRODUCTS_TABLE: &str = r#"
-CREATE TABLE IF NOT EXISTS products (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    name VARCHAR NOT NULL,
-    price NUMERIC(10, 2) NOT NULL,
-    quantity INTEGER NOT NULL
-);
-"#;
 
-pub const CREATE_SALES_TABLE: &str = r#"
-CREATE TABLE IF NOT EXISTS sales (
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    client_id UUID REFERENCES clients(id) ON DELETE CASCADE,
-    product_id UUID REFERENCES products(id) ON DELETE CASCADE,
-    quantity INTEGER NOT NULL,
-    total_price NUMERIC(10, 2) NOT NULL
-);
-"#;
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CreateClientSchema {
+    pub name: String,
+    pub email: String,
+    pub phone: String,
+}
 
-// Você pode adicionar mais comandos SQL aqui para criar outros relacionamentos ou tabelas adicionais
+#[derive(Debug, Serialize, Deserialize)]
+pub struct UpdateClientSchema {
+    pub name: Option<String>,
+    pub email: Option<String>,
+    pub phone: Option<String>,
+}
+
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct CreateSaleSchema {
+    pub client_id: Uuid,
+    pub product_id: Uuid,
+    pub quantity: i32,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct FilterOptions {
+    pub page: Option<usize>,
+    pub limit: Option<usize>,
+}

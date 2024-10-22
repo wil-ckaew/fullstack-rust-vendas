@@ -76,22 +76,21 @@ async fn update_sale_by_id(
 ) -> impl Responder {
     let sale_id = path.into_inner();
 
-    // Lógica de atualização
     let query = r#"
         UPDATE sales
-        SET client_id  = COALESCE($1, client_id),
+        SET client_id = COALESCE($1, client_id),
             product_id = COALESCE($2, product_id),
             quantity = COALESCE($3, quantity),
-            total = COALESCE($4, total),
-        WHERE id = $6
+            total = COALESCE($4, total)
+        WHERE id = $5
         RETURNING *;
     "#;
 
     match sqlx::query_as::<_, SaleModel>(query)
-        .bind(body.client_id .as_ref())
+        .bind(body.client_id.as_ref())  // Usa `Option<Uuid>`
         .bind(body.product_id)
         .bind(body.quantity)
-        .bind(body.total.as_ref())
+        .bind(body.total.as_ref())  // Usa `Option<f64>`
         .bind(sale_id)
         .fetch_one(&**db_pool)
         .await

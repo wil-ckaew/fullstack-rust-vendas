@@ -1,13 +1,13 @@
-mod services;
-mod models;
-mod handlers;
-
 use actix_web::{web, App, HttpServer, middleware::Logger};
+use actix_web::middleware::Logger;
 use actix_cors::Cors;
-use dotenv::dotenv;
 use sqlx::{postgres::PgPoolOptions, Pool, Postgres};
+use dotenv::dotenv;
 use std::env;
-use actix_files::Files;
+
+mod handlers;
+mod models;
+mod ai_service;
 
 pub struct AppState {
     db: Pool<Postgres>,
@@ -50,8 +50,8 @@ async fn main() -> std::io::Result<()> {
                 .allow_any_method() // Allow any HTTP method
                 .allow_any_header() // Allow any headers
             )
-            .service(Files::new("/uploads", "./uploads").show_files_listing()) // Servir arquivos estáticos do diretório de uploads
-            .service(Files::new("/static", "./static").show_files_listing()) // Servir arquivos estáticos
+         //   .service(Files::new("/uploads", "./uploads").show_files_listing()) // Servir arquivos estáticos do diretório de uploads
+          //  .service(Files::new("/static", "./static").show_files_listing()) // Servir arquivos estáticos
     })
     .bind("127.0.0.1:8080")? // Bind the server to port 8080
     .run()

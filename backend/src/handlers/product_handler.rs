@@ -1,11 +1,14 @@
 // src/handlers/product_handler.rs
 use actix_web::{
     get, post, delete, patch,
-    web::{Data, Json, Path, ServiceConfig},
+    web::{Data, Json, Path, ServiceConfig, Query},
     HttpResponse, Responder,
 };
 use serde_json::json;
-use crate::models::product::{CreateProductSchema, UpdateProductSchema, ProductModel}; // Combine todas as structs necessárias
+use crate::{
+    models::product::{CreateProductSchema, UpdateProductSchema, ProductModel, FilterOptions}, 
+    AppState
+};
 use uuid::Uuid;
 use sqlx::PgPool;
 
@@ -35,6 +38,40 @@ async fn create_product(
 }
 
 #[get("/products")]
+pub async fn get_all_products(
+    opts: Query<FilterOptions>, 
+    data: Data<AppState>
+) -> impl Responder {
+    let limit = opts.limit.unwrap_or(10);
+    let offset = (opts.page.unwrap_or(1) - 1) * limit;
+
+    match sqlx::query_as!(
+        ProductModel, 
+        "SELECT * FROM products ORDER BY id LIMIT $1 OFFSET $2", 
+        limit as i32, 
+        offset as i32
+    )
+        .fetch_all(&data.db)
+        .await
+    {
+        Ok(products) => {
+            HttpResponse::Ok().json(json!({
+                "status": "success", 
+                "products": products
+            }))
+        }
+        Err(error) => {
+            let response = json!({
+                "status": "error",
+                "message": format!("Failed to get products: {:?}", error)
+            });
+            HttpResponse::InternalServerError().json(response)
+        }
+    }
+}
+
+/*
+#[get("/products")]
 async fn get_all_products(db_pool: Data<PgPool>) -> impl Responder {
     let query = "SELECT * FROM products";
     
@@ -43,6 +80,7 @@ async fn get_all_products(db_pool: Data<PgPool>) -> impl Responder {
         Err(_) => HttpResponse::InternalServerError().json(json!({"status": "error", "message": "Failed to fetch products"})),
     }
 }
+*/
 
 #[get("/products/{id}")]
 async fn get_product_by_id(path: Path<Uuid>, db_pool: Data<PgPool>) -> impl Responder {
