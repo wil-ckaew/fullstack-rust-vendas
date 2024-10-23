@@ -1,4 +1,4 @@
-// src/handlers/sale_handler.rs
+// src/services/sales.rs
 use actix_web::{
     get, post, delete, patch,
     web::{Data, Json, Path, ServiceConfig, Query},
@@ -9,19 +9,22 @@ use crate::{
     models::sale::{CreateSaleSchema, UpdateSaleSchema, SaleModel, FilterOptions}, 
     AppState
 };
+use actix_files::Files;
+use actix_multipart::Multipart;
+use futures_util::StreamExt;
+use tokio::io::AsyncWriteExt;
+use sqlx::PgPool;
 use uuid::Uuid;
-use sqlx::PgPool; // Supondo que isso seja necessário
-
 
 #[post("/sales")]
 async fn create_sale(
     body: Json<CreateSaleSchema>,  // Agora com o campo client_id se necessário
-    db_pool: Data<PgPool>,
+    data: Data<AppState>
 ) -> impl Responder {
     let query = r#"
         INSERT INTO sales (client_id, product_id, quantity, total)
         VALUES ($1, $2, $3, $4)
-        RETURNING id, client_id, product_id, quantity, total
+        RETURNING id, client_id, product_id, quantity, total, sale_date
     "#;
 
     match sqlx::query_as::<_, SaleModel>(query)
@@ -29,25 +32,38 @@ async fn create_sale(
         .bind(&body.product_id)
         .bind(&body.quantity)
         .bind(&body.total)
-        .fetch_one(&**db_pool)
+        .fetch_one(&data.db)
         .await
     {
-        Ok(sale) => HttpResponse::Ok().json(json!({
-            "status": "sucesso",
-            "sale": sale
-        })),
-        Err(_) => HttpResponse::InternalServerError().json(json!({
-            "status": "erro",
-            "mensagem": "Falha ao criar sale"
-        })),
+        Ok(sale) => {
+            let response = json!( {
+                "status": "success",
+                "sale": {
+                    "id": sale.id,
+                    "client_id": sale.client_id,
+                    "product_id": sale.product_id,
+                    "quantity": sale.quantity, // Isso agora é f64
+                    "total": sale.total,
+                    "sale_date": sale.sale_date
+                }
+            });
+            HttpResponse::Ok().json(response)
+        }
+        Err(error) => {
+            let response = json!( {
+                "status": "error",
+                "message": format!("Failed to create sale: {:?}", error)
+            });
+            HttpResponse::InternalServerError().json(response)
+        }
     }
 }
 
 #[get("/sales")]
-async fn get_all_sales(db_pool: Data<PgPool>) -> impl Responder {
+async fn get_all_sales(data: Data<AppState>) -> impl Responder {
     let query = "SELECT * FROM sales";
     
-    match sqlx::query_as::<_, SaleModel>(query).fetch_all(&**db_pool).await {
+    match sqlx::query_as::<_, SaleModel>(query).fetch_all(&data.db).await {
         Ok(sales) => HttpResponse::Ok().json(json!({"status": "success", "sales": sales})),
         Err(_) => HttpResponse::InternalServerError().json(json!({"status": "error", "message": "Failed to fetch sales"})),
     }
@@ -72,10 +88,11 @@ async fn get_sale_by_id(path: Path<Uuid>, db_pool: Data<PgPool>) -> impl Respond
 async fn update_sale_by_id(
     path: Path<Uuid>,
     body: Json<UpdateSaleSchema>,
-    db_pool: Data<PgPool>,
+    data: Data<AppState>,
 ) -> impl Responder {
     let sale_id = path.into_inner();
 
+    // Lógica de atualização
     let query = r#"
         UPDATE sales
         SET client_id = COALESCE($1, client_id),
@@ -87,12 +104,12 @@ async fn update_sale_by_id(
     "#;
 
     match sqlx::query_as::<_, SaleModel>(query)
-        .bind(body.client_id.as_ref())  // Usa `Option<Uuid>`
-        .bind(body.product_id)
-        .bind(body.quantity)
-        .bind(body.total.as_ref())  // Usa `Option<f64>`
+        .bind(&body.client_id)  // Remova isso se client_id não for relevante
+        .bind(&body.product_id)
+        .bind(&body.quantity)
+        .bind(&body.total)
         .bind(sale_id)
-        .fetch_one(&**db_pool)
+        .fetch_one(&data.db)
         .await
     {
         Ok(updated_sale) => HttpResponse::Ok().json(updated_sale),
@@ -115,8 +132,8 @@ async fn delete_sale_by_id(path: Path<Uuid>, db_pool: Data<PgPool>) -> impl Resp
     }
 }
 
-pub fn config_sales(cfg: &mut ServiceConfig) {
-    cfg.service(create_sale)
+pub fn config_sales(conf: &mut ServiceConfig) {
+    conf.service(create_sale)
         .service(get_all_sales)
         .service(get_sale_by_id)
         .service(update_sale_by_id)

@@ -1,6 +1,6 @@
 // models/sale.rs
 use sqlx::types::BigDecimal;
-use chrono::{NaiveDateTime, Utc};
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 
@@ -12,7 +12,7 @@ pub struct SaleModel {
     pub product_id: Uuid,
     pub quantity: i32,
     pub total: f64,
-    // any other fields
+    pub sale_date: Option<DateTime<Utc>>,  // Ajustado para Option<DateTime<Utc>> para lidar com valores nulos
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -33,6 +33,6 @@ pub struct UpdateSaleSchema {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct FilterOptions {
-    pub limit: Option<i32>,
-    pub offset: Option<i32>,
+    pub pagina: Option<usize>,
+    pub limite: Option<usize>,
 }

@@ -24,6 +24,7 @@ pub struct CreateSaleSchema {
     pub client_id: Uuid,
     pub product_id: Uuid,
     pub quantity: i32,
+    pub total: f64,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -31,6 +32,7 @@ pub struct UpdateSaleSchema {
     pub client_id: Option<Uuid>,
     pub product_id: Option<Uuid>,
     pub quantity: Option<i32>,
+    pub total: Option<f64>,
 }
 
 #[derive(Deserialize, Serialize)]

@@ -1,6 +1,6 @@
 pub mod clients;
 pub mod product_handler;
-pub mod sale_handler;
+pub mod sales;
 
 use actix_web::web::ServiceConfig;
 
@@ -9,6 +9,6 @@ pub fn config(conf: &mut ServiceConfig) {
         actix_web::web::scope("/api")
             .configure(clients::config_clients)
             .configure(product_handler::config_products)
-            .configure(sale_handler::config_sales)
+            .configure(sales::config_sales)
     );
 }
